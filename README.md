@@ -1,18 +1,50 @@
 # SkyRescueAI
-### Overview
-SkyRescueAI is an autonomous AI-powered detection system designed to assist in search and rescue operations by identifying individuals in challenging forest environments from aerial drone footage. This project aims to fine-tune YOLOv11 to maximize detection accuracy and speed.
+> Real-time Human Detection in wild nature during rescue operations
 
-### Methodology
-We will use transfer learning to fine-tune YOLOv11 models, testing small, medium, and large model versions to find an optimal balance between accuracy and processing speed. The model will be trained on the HERIDAL Database and the Stanford Drone Dataset, both of which offer diverse, real-world images for robust model performance.
+## Overview
+The most current implementations rely on human pilots to control the drones, limiting the effectiveness of these operations due to human constraints. This project proposes the development of an autonomous model capable of detecting people from drone-captured images in forested environments at altitudes up to 100 meters. The model aims to enhance the efficiency of rescue missions by automating the detection process, reducing reliance on manual intervention, and improving response times in critical situations
 
-### Goals
-- Fine-tune and evaluate YOLOv11 variants for real-time person detection.
-- Test the model on drone-captured images in forested environments at altitudes up to 100 meters.
-- Measure performance with Mean Average Precision (mAP) and Latency metrics to ensure reliable, real-time detection.
+## Folder structure
+```
+.
+├── assets -- file assets for readme
+├── data_preparation
+│   └── clear_data.py -- data preparation script
+├── demo
+│   └── script.py -- demo script
+├── metrics.ipynb -- script to calculate metrics along different models
+└── training.ipynb -- main trainining script executed on GPU server
+```
 
-### Datasets
-- **HERIDAL Database** – Provides varied, high-resolution aerial images suited for human detection tasks.
-- **Stanford Drone Dataset** – Contains drone-captured images over various environments, enriching the model's ability to generalize.
+## Usage
+Prerequirements:
+- python 3.11 or greater
+- uv installed on the system
+- dataset prepared locally
 
-### Future Enhancements
-Further optimizations will include image slicing (SAHI) to enhance detail detection and TensorRT for faster inference in real-time applications.
+Execute the following script to run the demo:
+```bash
+git clone https://github.com/Amine-Trabelsi/SkyRescueAI.git
+cd SkyRescueAI/demo
+
+uv run script.py \
+    --model-name <path to weights or YOLO model name> \
+    --device <cpu/gpu/mps> \
+    --images <dataset path/images> \
+    --window-size <width> <height> \
+    --conf <confidence threshold>
+```
+
+Run `help` for additional information
+```
+uv run script.py --help
+```
+
+## Metrics
+![Metrics](./assets/metrics.png)
+
+## Dataset
+Dataset is avaiable at: https://storage.yandexcloud.net/computer-vision-rescui-lite/lite-train.zip
+
+## Model weights
+Model weight is avaible at: https://storage.yandexcloud.net/computer-vision-rescui-lite/our-model.pt
